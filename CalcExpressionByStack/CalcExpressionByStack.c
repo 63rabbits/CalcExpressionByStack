@@ -11,8 +11,8 @@
 
 //////////////////////////////////////////////////
 char *calcExpression(char *expression) {
-    Queue_t *tokenQ = convertQueueToRPN(expression);
-    Queue_t *calcQ = createQueue();
+    QUEUE_t *tokenQ = convertQueueToRPN(expression);
+    QUEUE_t *calcQ = createQueue();
     CT_t *calcToken = NULL;
     while (!isEmptyQueue(tokenQ)) {
         char *string = deQueue(tokenQ);
