@@ -159,10 +159,9 @@ CT_t *calcEQUAL(Stack_t *S) {
     char *equal = calloc(CE_LENGTH_OF_ANSWER, sizeof(char));
     int spaceSize = CE_LENGTH_OF_ANSWER - (int)strlen(token1->string) - 3;
     int halfSize = (spaceSize - 1) / 2;
-    char *format = calloc(128, sizeof(char));
-    sprintf(format, "%%s = %%-%d.%dlf", halfSize, halfSize);
+    char format[128] = "\0";
+    sprintf(format, "%%s = %%-%d.%dlf", (int)sizeof(format), halfSize);
     snprintf(equal, CE_LENGTH_OF_ANSWER - 1, format, token1->string, token2->value);
-    free(format);
     free(token1->string);
     token1->string = equal;
     destroyCalcToken(token2, CE_OPTION_WITH_ELEMENT);
