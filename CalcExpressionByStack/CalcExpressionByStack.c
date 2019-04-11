@@ -1,6 +1,3 @@
-//
-//  This program uses a stack structure for calculations.
-//
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -21,7 +18,7 @@ char *calcExpression(char *expression) {
     }
     destroyQueue(tokenQ, QUEUE_OPTION_WITH_ELEMENT);
     
-    char *ans = calloc(lengthOfAnswer, sizeof(char));
+    char *ans = calloc(CE_LENGTH_OF_ANSWER, sizeof(char));
     Stack_t *S = createStack();
     while (!isEmptyQueue(calcQ)) {
         CT_t *calcToken = deQueue(calcQ);
@@ -159,8 +156,13 @@ CT_t *calcEQUAL(Stack_t *S) {
     CT_t *token2 = popStack(S);
     CT_t *token1 = popStack(S);
     token2 = calcTokenTransform(token2);
-    char *equal = calloc(strlen(token1->string) + 3 + 37 + 1, sizeof(char));
-    sprintf(equal, "%s = %-36.15lf", token1->string, token2->value);
+    char *equal = calloc(CE_LENGTH_OF_ANSWER, sizeof(char));
+    int spaceSize = CE_LENGTH_OF_ANSWER - (int)strlen(token1->string) - 3;
+    int halfSize = (spaceSize - 1) / 2;
+    char *format = calloc(128, sizeof(char));
+    sprintf(format, "%%s = %%-%d.%dlf", halfSize, halfSize);
+    snprintf(equal, CE_LENGTH_OF_ANSWER - 1, format, token1->string, token2->value);
+    free(format);
     free(token1->string);
     token1->string = equal;
     destroyCalcToken(token2, CE_OPTION_WITH_ELEMENT);

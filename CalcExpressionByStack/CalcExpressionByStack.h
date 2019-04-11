@@ -5,12 +5,7 @@
 #include "ReversePolishNotation.h"
 
 //////////////////////////////////////////////////
-#define add(a, b) (a + b)
-#define subtract(a, b) (a - b)
-#define multiply(a, b) (a * b)
-#define divide(a, b) (a / b)
-#define minus(a) (-a)
-#define lengthOfAnswer 128
+#define CE_LENGTH_OF_ANSWER 64
 
 typedef enum CEOption {
     CE_OPTION_NONE,
